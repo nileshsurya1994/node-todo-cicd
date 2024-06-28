@@ -2,35 +2,47 @@ pipeline {
     agent any
     
     stages {
-        
-        stage("code"){
-            steps{
+        stage("code") {
+            steps {
                 git url: "https://github.com/nileshsurya1994/node-todo-cicd.git", branch: "master"
-                echo 'bhaiyya code clone ho gaya...'
+                echo 'Code clone successful'
             }
         }
-        stage("build and test"){
-            steps{
+        
+        stage("build and test") {
+            steps {
                 sh "sudo docker build -t nodejsapp ."
-                echo 'code build bhi ho gaya'
+                echo 'Build successful'
             }
         }
-        stage("scan image"){
-            steps{
-                echo 'image scanning ho gayi'
+        
+        stage("scan image") {
+            steps {
+                echo 'Image scanning completed'
             }
         }
-        stage("Existing container Remove")
-             steps{
-             sh "sudo docker rm -f nodejsapp"
-             echo 'Existing conatiner is removed'
-             }
-        stage("deploy"){
-            steps{
+        
+        stage("Existing container Remove") {
+            steps {
+                sh "sudo docker rm -f nodejsapp"
+                echo 'Existing container removed'
+            }
+        }
+        
+        stage("deploy") {
+            steps {
                 sh "sudo docker run -d --name nodejsapp -p 3000:3000 nodejsapp"
-                echo 'deployment ho gayi'
+                echo 'Deployment completed'
             }
         }
     }
+    
+    post {
+        success {
+            echo 'Pipeline successfully executed!'
+        }
+        failure {
+            echo 'Pipeline failed :('
+        }
+    }
 }
-
