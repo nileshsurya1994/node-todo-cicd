@@ -31,7 +31,7 @@ pipeline {
         
         stage("deploy") {
             steps {
-                sh "sudo docker run -d --name nodejsapp -p 3000:3000 nodejsapp"
+                sh "sudo docker run -d --name nodejsapp -p 3000:8000 nodejsapp"
                 echo 'Deployment completed'
             }
         }
