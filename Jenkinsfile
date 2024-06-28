@@ -1,4 +1,4 @@
-/*pipeline {
+pipeline {
     agent any
     
     stages {
@@ -11,7 +11,7 @@
         }
         stage("build and test"){
             steps{
-                sh "docker build -t nodejsapp ."
+                sh "sudo docker build -t nodejsapp ."
                 echo 'code build bhi ho gaya'
             }
         }
@@ -20,12 +20,17 @@
                 echo 'image scanning ho gayi'
             }
         }
+        stage("Existing container Remove")
+             steps{
+             sh "sudo docker rm -f nodejsapp"
+             echo 'Existing conatiner is removed'
+             }
         stage("deploy"){
             steps{
-                sh "docker run -d -p 3000:3000 nodejsapp"
+                sh "sudo docker run -d --name nodejsapp -p 3000:3000 nodejsapp"
                 echo 'deployment ho gayi'
             }
         }
     }
 }
-*?
+
