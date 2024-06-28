@@ -18,7 +18,7 @@ pipeline {
         
         stage("scan image") {
             steps {
-                echo 'Image scanning completed'
+                echo 'Image scanning completed....'
             }
         }
         
