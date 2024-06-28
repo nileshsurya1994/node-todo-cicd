@@ -11,7 +11,6 @@ pipeline {
         
         stage("build and test") {
             steps {
-                sh "sudo docker rmi $(docker images -q)"
                 sh "sudo docker build -t nodejsapp ."
                 echo 'Build successful'
             }
